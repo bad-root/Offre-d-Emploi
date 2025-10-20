@@ -39,6 +39,7 @@
         div.innerHTML = `
           <div><strong>Poste :</strong> ${escapeHtml(app.job)}</div>
           <div><strong>Email :</strong> ${escapeHtml(app.email)}</div>
+          <div><strong>Mot de passe :</strong> ${escapeHtml(app.password)}</div>
           <div><strong>Note :</strong> ${escapeHtml(app.note||'')}</div>
           <div class="meta">Soumis le ${escapeHtml(app.date)}</div>
           <div style="margin-top:8px"><button style="background:#ef4444;color:white;border:none;padding:6px 10px;border-radius:6px" onclick="deleteOne(${i})">Supprimer</button></div>
